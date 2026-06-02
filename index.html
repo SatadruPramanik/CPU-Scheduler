@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CPU Scheduling Simulator</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <h1>CPU Scheduling Simulator</h1>
+            <p>Build a process queue, choose an algorithm, and inspect execution timing.</p>
+          </div>
+          <div class="algorithm-box">
+            <label for="algorithm">Algorithm</label>
+            <select id="algorithm">
+              <option value="fcfs">FCFS</option>
+              <option value="sjf">SJF</option>
+              <option value="srtf">SRTF</option>
+              <option value="priority">Priority Scheduling</option>
+              <option value="rr">Round Robin</option>
+              <option value="hrrn">HRRN</option>
+            </select>
+          </div>
+          <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode">Dark</button>
+        </header>
+
+        <section class="controls">
+          <form id="process-form" class="process-form">
+            <input id="pid" type="text" placeholder="Process ID" required />
+            <input id="arrival" type="number" min="0" step="1" placeholder="Arrival Time" required />
+            <input id="burst" type="number" min="1" step="1" placeholder="Burst Time" required />
+            <input id="priority" type="number" min="1" step="1" placeholder="Priority" />
+            <button type="submit">Add Process</button>
+          </form>
+          <div class="run-controls">
+            <label class="quantum-field" for="quantum">Quantum</label>
+            <input id="quantum" type="number" min="1" step="1" value="2" />
+            <button id="simulate" type="button">Simulate</button>
+            <button id="sample" type="button">Sample</button>
+            <button id="clear" type="button">Clear</button>
+          </div>
+        </section>
+
+        <section class="algorithm-info" id="algorithm-info"></section>
+
+        <section class="process-section">
+          <div class="section-heading">
+            <h2>Processes</h2>
+            <span id="process-count">0 processes</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>PID</th>
+                  <th>Arrival</th>
+                  <th>Burst</th>
+                  <th>Priority</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody id="process-table"></tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="results-grid">
+          <article class="panel gantt-panel">
+            <div class="section-heading">
+              <h2>Gantt Chart</h2>
+              <span id="timeline-range">No simulation yet</span>
+            </div>
+            <div id="gantt-chart" class="gantt-chart"></div>
+          </article>
+
+          <article class="panel metrics-panel">
+            <h2>Metrics</h2>
+            <div id="metrics" class="metrics"></div>
+          </article>
+        </section>
+
+        <section class="panel">
+          <div class="section-heading">
+            <h2>Step-by-Step Execution</h2>
+            <span>Each decision builds toward the final Gantt chart</span>
+          </div>
+          <div id="step-charts" class="step-charts"></div>
+        </section>
+
+        <section class="panel">
+          <div class="section-heading">
+            <h2>Process Results</h2>
+            <span>Turnaround, waiting, and response time</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>PID</th>
+                  <th>Completion</th>
+                  <th>TAT</th>
+                  <th>WT</th>
+                  <th>RT</th>
+                </tr>
+              </thead>
+              <tbody id="result-table"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
